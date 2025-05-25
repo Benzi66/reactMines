@@ -8,10 +8,12 @@ export default function MineField() {
   const [squares, setSquares] = useState(Array(25).fill(null));
   const [mines, setMines] = useState(Array(25).fill("V"));
   const [minesAmt, setAmt] = useState(1);
+  const [mult, setMult] = useState(1);
   function StartButton() {
     setSquares(Array(25).fill(null));
     PlaceMines({Amount: minesAmt});
     setGameStarted(true);
+    setMult(1);
   }
   function PlaceMines({ Amount }) {
     const nextMines = Array(25).fill("V");
@@ -48,6 +50,9 @@ export default function MineField() {
         }
 
       }
+      else{
+        setMult(parseFloat((mult*(Math.pow(1.05,minesAmt))).toFixed(2)));
+      }
 
     }
     setSquares(nextSquares);
@@ -57,6 +62,7 @@ export default function MineField() {
     <>
 
       <button onClick={StartButton} disabled = {gameStarted}>Start</button>
+      <h4>Multiplier: {mult}</h4>
       <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
       <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
     </>
