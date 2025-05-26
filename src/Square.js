@@ -1,17 +1,19 @@
-import react from 'react'
+import React from 'react';
+import diamondImg from './Images/testDiamondPNG.png';
+import mineImg from './Images/testMinePNG.png';
 
-function Square({value, onSquareClick, disabled}) {
-  let displayValue;
+function Square({ value, onSquareClick, disabled }) {
+  let displayContent;
   let dynamicClassName = 'square';
 
   if (value === 'V') {
-    displayValue = '💎';
+    displayContent = <img src={diamondImg} alt="Diamond" style={{ width: '80%', height: '80%' }} />;
     dynamicClassName += ' square-revealed-safe';
   } else if (value === 'X') {
-    displayValue = '💣';
+    displayContent = <img src={mineImg} alt="Mine" style={{ width: '80%', height: '80%' }} />;
     dynamicClassName += ' square-revealed-mine';
   } else {
-    displayValue = value; // Should be null or empty for unrevealed squares
+    displayContent = value; // Should be null or empty for unrevealed squares
   }
 
   // The 'disabled' prop in Square.js is true if it *should* be clickable.
@@ -29,13 +31,13 @@ function Square({value, onSquareClick, disabled}) {
 
   return (
     <button className={dynamicClassName} onClick={onSquareClick} disabled={!disabled}>
-      {(value === 'V' || value === 'X') && (
-        <span className={iconClassName}>
-          {displayValue}
-        </span>
-      )}
+      {(value === 'V' || value === 'X') ? (
+        <div className={iconClassName}>
+          {displayContent}
+        </div>
+      ) : null}
     </button>
   );
 }
 
-export default Square
+export default Square;

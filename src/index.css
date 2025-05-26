@@ -255,3 +255,44 @@ button.btn-cashout:disabled:hover {
 .popup-amount-won {
   font-size: 0.9em;
 }
+
+/* Styles for the new UI Panel */
+.ui-panel {
+  background-color: #2D3748; /* Matching game-board background */
+  padding: 15px;
+  border: 1px solid #4A5568; /* Matching game-board border elements */
+  width: 280px; /* Slightly wider to accommodate content comfortably */
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px; /* Matching game-board */
+  margin-left: 20px; /* Space between game-board and ui-panel */
+}
+
+/* Container for Start and Cash Out buttons within ui-panel */
+.ui-panel > div:first-child {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px; /* Space below the buttons */
+}
+
+/* Spacing and alignment for NumberInput containers and h4 elements within ui-panel */
+/* Assuming NumberInput component renders a div with class "NumberInput-container" or similar */
+.ui-panel .NumberInput-container, /* Target the container of NumberInput if it exists */
+.ui-panel .number-input-container, /* Common naming convention for such containers */
+.ui-panel h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left; /* Ensure text is aligned to the left */
+}
+
+/* If NumberInput itself is a block or needs specific margin */
+.ui-panel > .NumberInput, /* If NumberInput is a direct child and a class name */
+.ui-panel > .number-input-container { /* Alternative if it's a direct child container */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Ensure h4 elements within ui-panel have consistent text color */
+.ui-panel h4 {
+  color: #E2E8F0; /* Match body color for consistency */
+}

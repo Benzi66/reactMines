@@ -91,27 +91,27 @@ export default function MineField() {
   }
 
   return (
-    <>
-      <div className="game-controls">
-        <button className="btn-start" onClick={StartButton} disabled = {gameStarted}>Start</button>
-        <button className="btn-cashout" onClick={CashOut} disabled = {!gameStarted}>Cash Out</button>
-        <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
-        <NumberInput label={"Cash for game"} value = {wantedBet} onChange={setWantedBet} disabled = {gameStarted} />
+    <div style={{ display: 'flex' }}>
+      <div className="game-board">
+        <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
       </div>
-      <div className="game-info">
+      <div className="ui-panel" style={{ marginLeft: '20px', padding: '10px', border: '1px solid grey' }}>
+        <div> {/* This div will group Start and Cash Out buttons */}
+          <button className="btn-start" onClick={StartButton} disabled={gameStarted}>Start</button>
+          <button className="btn-cashout" onClick={CashOut} disabled={!gameStarted}>Cash Out</button>
+        </div>
+        <NumberInput label={"Amount of mines"} value={minesAmt} onChange={setAmt} disabled={gameStarted} />
+        <NumberInput label={"Cash for game"} value={wantedBet} onChange={setWantedBet} disabled={gameStarted} />
         <h4 className="multiplier-text">Multiplier: {mult}</h4>
         <h4 className="cash-text">TotalCash: {TotalCash}</h4>
         <h4 className="cash-text">Cash Out Money: {parseFloat((mult * currCash).toFixed(2))}</h4>
-      </div>
-      <div className="game-board">
-        <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
       </div>
       <CashOutPopup
         multiplier={popupData.multiplier}
         amountWon={popupData.amountWon}
         isVisible={showCashOutPopup}
       />
-    </>
+    </div>
   );
 }
 
