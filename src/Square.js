@@ -5,14 +5,18 @@ import mineImg from './Images/testMinePNG.png';
 function Square({ value, onSquareClick, disabled }) {
   let displayContent;
   let dynamicClassName = 'square';
+  if(disabled)
+  {  
+    if (value === 'V') {
+      displayContent = <img src={diamondImg} alt="Diamond"   style={{ width: '80%', height: '80%', marginTop: '15%' }} />;
+      dynamicClassName += ' square-revealed-safe';
+    } else if (value === 'X') {
+      displayContent = <img src={mineImg} alt="Mine" style={{ width: '80%', height: '80%', marginTop: '15%' }} />;
+      dynamicClassName += ' square-revealed-mine';
+    } 
+  }
 
-  if (value === 'V') {
-    displayContent = <img src={diamondImg} alt="Diamond" style={{ width: '80%', height: '80%' }} />;
-    dynamicClassName += ' square-revealed-safe';
-  } else if (value === 'X') {
-    displayContent = <img src={mineImg} alt="Mine" style={{ width: '80%', height: '80%' }} />;
-    dynamicClassName += ' square-revealed-mine';
-  } else {
+  else {
     displayContent = value; // Should be null or empty for unrevealed squares
   }
 

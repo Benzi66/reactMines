@@ -70,7 +70,7 @@ ul {
 }
 
 .square:hover {
-  /* background-color: #4A5568; */ /* Removed hover background change */
+  background-color: #4A5568; /* Removed hover background change */
   cursor: pointer; /* Retained for clarity, though base .square now has it */
 }
 
