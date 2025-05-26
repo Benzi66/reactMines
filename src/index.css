@@ -1,9 +1,9 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 20px;
   padding: 0;
-  background-color: #333333;
-  color: #FFFFFF;
+  background-color: #1A202C; /* Updated */
+  color: #E2E8F0; /* Updated */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,7 @@ h3 {
 h4 {
   margin-top: 0;
   font-size: 16px;
-  color: #FFFFFF;
+  color: #E2E8F0; /* Updated to match body color */
 }
 
 h5 {
@@ -49,8 +49,12 @@ ul {
 }
 
 .square {
-  background: #555555;
-  border: 1px solid #444444;
+  background-color: #3E4C5F; /* Medium dark grey, slightly lighter than game board */
+  border: 1px solid #2D3748; /* Border to distinguish from board */
+  box-shadow: inset 0px 0px 2px rgba(0,0,0,0.3); /* Subtle inset shadow for depth */
+  color: #FFFFFF; /* White icons by default */
+  border-radius: 4px; /* Added */
+  overflow: hidden; /* Added */
   float: left;
   font-size: 30px;
   font-weight: bold;
@@ -61,6 +65,27 @@ ul {
   padding: 0;
   text-align: center;
   width: 40px;
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth changes */
+}
+
+.square:hover {
+  background-color: #4A5568; /* Slightly lighter on hover */
+  cursor: pointer;
+}
+
+.square-revealed-safe {
+  background-color: #319795; /* Teal/blue */
+  color: #FFFFFF; /* White diamond icon */
+}
+
+.square-revealed-mine {
+  background-color: #E53E3E; /* Red background for mine */
+  color: #FFFFFF; /* White bomb icon */
+}
+
+.square-disabled {
+  cursor: not-allowed;
+  opacity: 0.7; /* Make them look less interactive */
 }
 
 .board-row:after {
@@ -78,43 +103,123 @@ ul {
 }
 
 .game-board {
+  background-color: #2D3748; /* Updated */
+  padding: 20px; /* Updated */
+  border-radius: 8px; /* Updated */
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .game-controls {
   display: flex;
-  justify-content: space-around;
+  justify-content: center; /* Updated */
   margin-bottom: 20px;
   align-items: center;
+  background-color: transparent; /* Updated */
+  width: 100%;
+  max-width: 600px; /* Constrain width */
+  flex-wrap: wrap; /* Allow wrapping */
+  gap: 15px; /* Spacing between control items */
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-left: 0; /* Remove previous margin if body is centering */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center; /* Center align text info */
   margin-bottom: 20px;
+  background-color: transparent; /* Updated */
+  width: 100%;
+  max-width: 400px; /* Constrain width */
+  gap: 10px; /* Spacing between info items */
+  padding: 10px 0; /* Added */
 }
 
 button {
-  background-color: #007bff;
-  color: #FFFFFF;
-  border: none;
-  padding: 10px 15px;
+  background-color: #4A5568; /* Default */
+  color: #E2E8F0; /* Updated */
+  border: none; /* Updated */
+  padding: 10px 20px; /* Updated */
   margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 6px; /* Updated */
+  cursor: pointer; /* Updated */
+  font-weight: bold; /* Updated */
+  transition: background-color 0.2s ease-in-out; /* Updated */
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #5A6578; /* Default hover */
+}
+
+.btn-start {
+  background-color: #00B800; /* Bright green */
+  color: #FFFFFF; /* White text */
+}
+
+.btn-start:hover {
+  background-color: #009900; /* Darker green on hover */
+}
+
+.btn-cashout {
+  background-color: #667EEA; /* Distinct blue/purple */
+  color: #FFFFFF;
+}
+
+.btn-cashout:hover {
+  background-color: #5A65D8;
+}
+
+input[type="number"] {
+  background-color: #2D3748; /* New */
+  color: #E2E8F0; /* New */
+  border: 1px solid #4A5568; /* New */
+  border-radius: 4px; /* New */
+  padding: 8px 10px; /* New */
 }
 
 .cash-text {
-  color: #4CAF50;
+  color: #4CAF50; /* Retained */
 }
 
 .multiplier-text {
-  color: #4CAF50;
+  color: #4CAF50; /* Retained */
+}
+
+@keyframes revealIconAnimation {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1); /* Slight overshoot for a bit of bounce */
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.square-icon {
+  display: inline-block; /* Allows transform */
+  /* The animation will be triggered by adding another class */
+}
+
+.square-icon-animate {
+  animation: revealIconAnimation 0.35s ease-out forwards;
+}
+
+button:disabled,
+button.btn-start:disabled,
+button.btn-cashout:disabled {
+  background-color: #3E4C5F; /* A duller grey */
+  color: #718096; /* Muted text */
+  cursor: not-allowed;
+  box-shadow: none; /* Remove shadow if any on normal state */
+  opacity: 0.6; /* Further reduce opacity */
+}
+button:disabled:hover,
+button.btn-start:disabled:hover,
+button.btn-cashout:disabled:hover {
+  background-color: #3E4C5F; /* Ensure hover doesn't change appearance */
 }

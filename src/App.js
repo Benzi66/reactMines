@@ -73,8 +73,8 @@ export default function MineField() {
   return (
     <>
       <div className="game-controls">
-        <button onClick={StartButton} disabled = {gameStarted}>Start</button>
-        <button onClick={CashOut} disabled = {!gameStarted}>Cash Out</button>
+        <button className="btn-start" onClick={StartButton} disabled = {gameStarted}>Start</button>
+        <button className="btn-cashout" onClick={CashOut} disabled = {!gameStarted}>Cash Out</button>
         <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
         <NumberInput label={"Cash for game"} value = {currCash} onChange={setCurrCash} disabled = {gameStarted} />
       </div>
