@@ -224,3 +224,34 @@ button.btn-start:disabled:hover,
 button.btn-cashout:disabled:hover {
   background-color: #3E4C5F; /* Ensure hover doesn't change appearance */
 }
+
+.cashout-popup {
+  background-color: #00B800;
+  color: #FFFFFF;
+  padding: 12px 20px;
+  border-radius: 6px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px); /* Initial position for animation */
+  z-index: 1000;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.cashout-popup.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* Slide into place */
+}
+
+.popup-multiplier {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.popup-amount-won {
+  font-size: 0.9em;
+}

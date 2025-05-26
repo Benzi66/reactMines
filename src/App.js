@@ -2,7 +2,7 @@ import { useState } from "react";
 import NumberInput from "./NumberInput.tsx";
 import GameBoard from "./GameBoard.js";
 import Square from "./Square.js";
-import { getPayout } from './payoutTable'
+import CashOutPopup from './CashOutPopup.js';
 
 export default function MineField() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -12,15 +12,26 @@ export default function MineField() {
   const [mult, setMult] = useState(1);
   const [currCash,setCurrCash] = useState(0);
   const [TotalCash, setTotalCash] = useState(300);
-  const [successAmt, setSuccessAmt] = useState(0)
+  const [showCashOutPopup, setShowCashOutPopup] = useState(false);
+  const [popupData, setPopupData] = useState({ multiplier: 0, amountWon: 0 });
 
   function CashOut() {
-    console.log("player won " + currCash*mult + " money, at a "+mult+" multiplier");
-    //code for pop out here.
+    const amountJustWon = currCash * mult; // Calculate amount won in this round
+    // console.log(`CashOut: Multiplier: ${mult}, Amount Won: ${amountJustWon}, Current Bet: ${currCash}`);
+
+    setTotalCash(prevTotalCash => prevTotalCash + amountJustWon); // Add winnings to total cash
+
+    setPopupData({ multiplier: mult, amountWon: amountJustWon });
+    setShowCashOutPopup(true);
+
+    // Reset game state for next round AFTER showing popup data
     setGameStarted(false);
-    setCurrCash(currCash * mult);
-    setTotalCash(TotalCash + currCash);
-    setCurrCash(0);
+    setCurrCash(0); // Reset bet amount for next game
+    // mult will be reset when starting a new game via StartButton
+
+    setTimeout(() => {
+      setShowCashOutPopup(false);
+    }, 3000); // Hide popup after 3 seconds
   }
   function StartButton() {
     setSquares(Array(25).fill(null));
@@ -28,7 +39,6 @@ export default function MineField() {
     setGameStarted(true);
     setMult(1);
     setTotalCash(TotalCash-currCash);
-    setSuccessAmt(0);
   }
   function PlaceMines({ Amount }) {
     const nextMines = Array(25).fill("V");
@@ -68,8 +78,7 @@ export default function MineField() {
 
       }
       else{
-        setSuccessAmt(successAmt+1);
-        setMult(getPayout(successAmt +1,minesAmt));
+        setMult(parseFloat((mult*(Math.pow(1.05,minesAmt))).toFixed(2)));
       }
 
     }
@@ -92,6 +101,11 @@ export default function MineField() {
       <div className="game-board">
         <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
       </div>
+      <CashOutPopup
+        multiplier={popupData.multiplier}
+        amountWon={popupData.amountWon}
+        isVisible={showCashOutPopup}
+      />
     </>
   );
 }
