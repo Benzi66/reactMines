@@ -2,6 +2,7 @@ import { useState } from "react";
 import NumberInput from "./NumberInput.tsx";
 import GameBoard from "./GameBoard.js";
 import Square from "./Square.js";
+import { getPayout } from './payoutTable'
 
 export default function MineField() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -11,8 +12,11 @@ export default function MineField() {
   const [mult, setMult] = useState(1);
   const [currCash,setCurrCash] = useState(0);
   const [TotalCash, setTotalCash] = useState(300);
+  const [successAmt, setSuccessAmt] = useState(0)
 
   function CashOut() {
+    console.log("player won " + currCash*mult + " money, at a "+mult+" multiplier");
+    //code for pop out here.
     setGameStarted(false);
     setCurrCash(currCash * mult);
     setTotalCash(TotalCash + currCash);
@@ -24,6 +28,7 @@ export default function MineField() {
     setGameStarted(true);
     setMult(1);
     setTotalCash(TotalCash-currCash);
+    setSuccessAmt(0);
   }
   function PlaceMines({ Amount }) {
     const nextMines = Array(25).fill("V");
@@ -63,7 +68,8 @@ export default function MineField() {
 
       }
       else{
-        setMult(parseFloat((mult*(Math.pow(1.05,minesAmt))).toFixed(2)));
+        setSuccessAmt(successAmt+1);
+        setMult(getPayout(successAmt +1,minesAmt));
       }
 
     }
