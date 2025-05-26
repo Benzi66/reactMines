@@ -55,7 +55,7 @@ const NumberInput = ({
   };
 
   return (
-    <div className={wrapperClassName}>
+    <div className = "number-input-container">
       {label && <label htmlFor={inputId}>{label}</label>}
       <input
         id={inputId}

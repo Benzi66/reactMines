@@ -91,27 +91,44 @@ export default function MineField() {
   }
 
   return (
-    <>
-      <div className="game-controls">
-        <button className="btn-start" onClick={StartButton} disabled = {gameStarted}>Start</button>
-        <button className="btn-cashout" onClick={CashOut} disabled = {!gameStarted}>Cash Out</button>
-        <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
-        <NumberInput label={"Cash for game"} value = {wantedBet} onChange={setWantedBet} disabled = {gameStarted} />
-      </div>
+    <div className="game-container">
       <div className="game-info">
-        <h4 className="multiplier-text">Multiplier: {mult}</h4>
-        <h4 className="cash-text">TotalCash: {TotalCash}</h4>
-        <h4 className="cash-text">Cash Out Money: {parseFloat((mult * currCash).toFixed(2))}</h4>
+        <div className="game-board"
+          onClick={(event) => {
+            if(showCashOutPopup){
+              const popupElement = document.querySelector('.cashout-popup.visible');
+              if(popupElement && popupElement.contains(event.target)){
+                return;
+              }
+              setShowCashOutPopup(false);
+            }
+          } }
+        >
+          <GameBoard
+           squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted} />
+            <CashOutPopup
+            multiplier={popupData.multiplier}
+            amountWon={popupData.amountWon}
+            isVisible={showCashOutPopup}
+          />
+        </div>
+        <div className="other-stuff">
+          <div className="top-controls">
+            <button className="btn-start" onClick={StartButton} disabled={gameStarted}>Start</button>
+            <button className="btn-cashout" onClick={CashOut} disabled={!gameStarted}>Cash Out</button>
+          </div>
+          <div className="input-settings-panel">
+            <NumberInput label={"Amount of mines "} value={minesAmt} onChange={setAmt} disabled={gameStarted} min={1} max={24} />
+            <NumberInput label={"Cash for game "} value={wantedBet} onChange={setWantedBet} disabled={gameStarted} min={1} max={TotalCash} />
+          </div>
+          <div className="game-stats">
+            <h4 className="multiplier-text">Multiplier: {mult}</h4>
+            <h4 className="cash-text">TotalCash: {TotalCash}</h4>
+            <h4 className="cash-text">Cash Out Money: {parseFloat((mult * currCash).toFixed(2))}</h4>
+          </div>
+        </div>
       </div>
-      <div className="game-board">
-        <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
-      </div>
-      <CashOutPopup
-        multiplier={popupData.multiplier}
-        amountWon={popupData.amountWon}
-        isVisible={showCashOutPopup}
-      />
-    </>
+    </div>
   );
 }
 

@@ -96,12 +96,17 @@ ul {
 }
 
 .game-board {
+  display: grid;
   background-color: #2D3748; /* Updated */
   padding: 20px; /* Updated */
   border-radius: 8px; /* Updated */
   margin-top: 20px;
   margin-bottom: 20px;
+  flex-shrink: 0;
+  position: relative;
+
 }
+
 
 .game-controls {
   display: flex;
@@ -118,15 +123,37 @@ ul {
 .game-info {
   margin-left: 0; /* Remove previous margin if body is centering */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center; /* Center align text info */
   margin-bottom: 20px;
   background-color: transparent; /* Updated */
   width: 100%;
-  max-width: 400px; /* Constrain width */
+  max-width: 800px; /* Constrain width */
   gap: 10px; /* Spacing between info items */
   padding: 10px 0; /* Added */
 }
+.top-controls{
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.input-settings-panel{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.game-stats{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.other-stuff{
+    background-color: #2b374d; /* Updated */
+    margin-bottom: 60px;
+}
+
 
 button {
   background-color: #4A5568; /* Default */
@@ -222,8 +249,8 @@ button.btn-cashout:disabled:hover {
   color: #FFFFFF;
   padding: 12px 20px;
   border-radius: 6px;
-  position: fixed;
-  top: 20px;
+  position: absolute;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%) translateY(-20px); /* Initial position for animation */
   z-index: 1000;
