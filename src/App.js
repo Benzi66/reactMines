@@ -2,7 +2,6 @@ import { getPayout } from "./payoutTable.js";
 import { useState } from "react";
 import NumberInput from "./NumberInput.tsx";
 import GameBoard from "./GameBoard.js";
-import Square from "./Square.js";
 import CashOutPopup from './CashOutPopup.js';;
 
 
@@ -24,15 +23,15 @@ export default function MineField() {
     setTotalCash(parseFloat((TotalCash + (wantedBet * mult)).toFixed(2))); // Add winnings to total cash
     setPopupData({ multiplier: mult, amountWon: amountJustWon });
     setShowCashOutPopup(true);
-    // Reset game state for next round AFTER showing popup data
     setGameStarted(false);
+    revealAll();
   }
   function StartButton() {
     setSquares(Array(25).fill(null));
-    PlaceMines({Amount: minesAmt});
+    PlaceMines({ Amount: minesAmt });
     setGameStarted(true);
     setMult(1);
-    setTotalCash(parseFloat((TotalCash-wantedBet).toFixed(2)));
+    setTotalCash(parseFloat((TotalCash - wantedBet).toFixed(2)));
     setSuccessAmt(0);
   }
   function PlaceMines({ Amount }) {
@@ -67,12 +66,17 @@ export default function MineField() {
         setGameStarted(false);
         setMult(1);
         for (let t = 0; t < 25; t++) {
-          nextSquares[t] = mines[t]
+          if(nextSquares[t] === null)
+          if(mines[t] === "V")
+          nextSquares[t] = "V";
+          else
+          if(mines[t] === "X")
+          nextSquares[t] = "XE";
         }
 
       }
-      else{
-        setSuccessAmt(successAmt+1);
+      else {
+        setSuccessAmt(successAmt + 1);
         setMult(getPayout(successAmt + 1, minesAmt));
       }
 
@@ -80,23 +84,36 @@ export default function MineField() {
     setSquares(nextSquares);
   }
 
+  function revealAll() {
+    const nextSquares = squares.slice();
+        for (let t = 0; t < 25; t++) {
+          if(nextSquares[t] === null)
+          if(mines[t] === "V")
+          nextSquares[t] = "VE";
+          else
+          if(mines[t] === "X")
+          nextSquares[t] = "XE";   
+      setSquares(nextSquares);
+    }
+  }
+
   return (
     <div className="game-container">
       <div className="game-info">
         <div className="game-board"
           onClick={(event) => {
-            if(showCashOutPopup){
+            if (showCashOutPopup) {
               const popupElement = document.querySelector('.cashout-popup.visible');
-              if(popupElement && popupElement.contains(event.target)){
+              if (popupElement && popupElement.contains(event.target)) {
                 return;
               }
               setShowCashOutPopup(false);
             }
-          } }
+          }}
         >
           <GameBoard
-           squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted} />
-            <CashOutPopup
+            squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted} />
+          <CashOutPopup
             multiplier={popupData.multiplier}
             amountWon={popupData.amountWon}
             isVisible={showCashOutPopup}
