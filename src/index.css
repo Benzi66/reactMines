@@ -53,7 +53,7 @@ ul {
   border: 1px solid #2D3748; /* Border to distinguish from board */
   box-shadow: inset 0px 0px 2px rgba(0,0,0,0.3); /* Subtle inset shadow for depth */
   color: #FFFFFF; /* White icons by default */
-  border-radius: 4px; /* Added */
+  border-radius: 2px; /* Updated from 4px */
   overflow: hidden; /* Added */
   float: left;
   font-size: 30px;
@@ -66,16 +66,17 @@ ul {
   text-align: center;
   width: 40px;
   transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth changes */
+  cursor: pointer; /* Added for clickable squares */
 }
 
 .square:hover {
-  background-color: #4A5568; /* Slightly lighter on hover */
-  cursor: pointer;
+  /* background-color: #4A5568; */ /* Removed hover background change */
+  cursor: pointer; /* Retained for clarity, though base .square now has it */
 }
 
 .square-revealed-safe {
-  background-color: #319795; /* Teal/blue */
-  color: #FFFFFF; /* White diamond icon */
+  background-color: #00C853; /* Updated to bright green */
+  color: #FFFFFF; /* Ensured White diamond icon */
 }
 
 .square-revealed-mine {
