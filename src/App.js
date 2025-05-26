@@ -15,6 +15,8 @@ export default function MineField() {
   const [successAmt, setSuccessAmt] = useState(0)
 
   function CashOut() {
+    console.log("player won " + currCash*mult + " money, at a "+mult+" multiplier");
+    //code for pop out here.
     setGameStarted(false);
     setCurrCash(currCash * mult);
     setTotalCash(TotalCash + currCash);
