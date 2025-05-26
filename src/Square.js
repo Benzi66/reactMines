@@ -7,21 +7,37 @@ function Square({ value, onSquareClick, disabled }) {
   let dynamicClassName = 'square';
   displayContent = value;
 
-    if (value === 'V') {
+    // if (value === 'V') {
+    //   displayContent = <img src={diamondImg} alt="Diamond"   style={{ width: '80%', height: '80%', marginTop: '15%' }} />;
+    //   dynamicClassName += ' square-revealed-safe';
+    // } else if (value === 'X') {
+    //   displayContent = <img src={mineImg} alt="Mine" style={{ width: '80%', height: '80%', marginTop: '15%' }} />;
+    //   dynamicClassName += ' square-revealed-mine';
+    // } 
+    // else if (value === 'VE') {
+    //   displayContent = <img src={diamondImg} alt="Diamond"   style={{ width: '50%', height: '50%', marginTop: '15%' , opacity: '70%' }} />;
+    //   dynamicClassName += ' square-revealed-safe';
+    // } else if (value === 'XE') {
+    //   displayContent = <img src={mineImg} alt="Mine" style={{ width: '50%', height: '50%', marginTop: '15%', opacity: '70%' }} />;
+    //   dynamicClassName += ' square-revealed-mine';
+    // } 
+    switch (value) {
+      case 'V':
       displayContent = <img src={diamondImg} alt="Diamond"   style={{ width: '80%', height: '80%', marginTop: '15%' }} />;
-      dynamicClassName += ' square-revealed-safe';
-    } else if (value === 'X') {
+      break;
+      case 'X':
       displayContent = <img src={mineImg} alt="Mine" style={{ width: '80%', height: '80%', marginTop: '15%' }} />;
-      dynamicClassName += ' square-revealed-mine';
-    } 
-    else if (value === 'VE') {
+      break;
+      case 'VE':
       displayContent = <img src={diamondImg} alt="Diamond"   style={{ width: '50%', height: '50%', marginTop: '15%' , opacity: '70%' }} />;
-      dynamicClassName += ' square-revealed-safe';
-    } else if (value === 'XE') {
+      break;
+      case 'XE':
       displayContent = <img src={mineImg} alt="Mine" style={{ width: '50%', height: '50%', marginTop: '15%', opacity: '70%' }} />;
-      dynamicClassName += ' square-revealed-mine';
-    } 
-  
+      break;
+      default:
+      break;
+    }
+
 
 
 

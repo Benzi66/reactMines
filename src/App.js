@@ -62,26 +62,20 @@ export default function MineField() {
     const nextSquares = squares.slice();
     if (nextSquares[i] === null) {
       nextSquares[i] = mines[i];
+      setSquares(nextSquares);
       if (nextSquares[i] === "X") {
         setGameStarted(false);
         setMult(1);
-        for (let t = 0; t < 25; t++) {
-          if(nextSquares[t] === null)
-          if(mines[t] === "V")
-          nextSquares[t] = "V";
-          else
-          if(mines[t] === "X")
-          nextSquares[t] = "XE";
-        }
+        revealAll();
 
       }
       else {
         setSuccessAmt(successAmt + 1);
         setMult(getPayout(successAmt + 1, minesAmt));
+        setSquares(nextSquares);
       }
 
     }
-    setSquares(nextSquares);
   }
 
   function revealAll() {
