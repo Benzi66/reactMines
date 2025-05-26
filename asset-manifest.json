@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/reactMines/static/css/main.b04ed492.css",
+    "main.js": "/reactMines/static/js/main.ddcbf3c1.js",
+    "static/js/453.f293bb83.chunk.js": "/reactMines/static/js/453.f293bb83.chunk.js",
+    "index.html": "/reactMines/index.html",
+    "main.b04ed492.css.map": "/reactMines/static/css/main.b04ed492.css.map",
+    "main.ddcbf3c1.js.map": "/reactMines/static/js/main.ddcbf3c1.js.map",
+    "453.f293bb83.chunk.js.map": "/reactMines/static/js/453.f293bb83.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b04ed492.css",
+    "static/js/main.ddcbf3c1.js"
+  ]
+}
