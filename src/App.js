@@ -12,7 +12,6 @@ export default function MineField() {
   const [mines, setMines] = useState(Array(25).fill("V"));
   const [minesAmt, setAmt] = useState(1);
   const [mult, setMult] = useState(1);
-  const [currCash,setCurrCash] = useState(0);
   const [TotalCash, setTotalCash] = useState(300.0);
   const [showCashOutPopup, setShowCashOutPopup] = useState(false);
   const [popupData, setPopupData] = useState({ multiplier: 0, amountWon: 0 });;
@@ -21,27 +20,19 @@ export default function MineField() {
 
 
   function CashOut() {
-    const amountJustWon = currCash * mult; // Calculate amount won in this round
-    // console.log(`CashOut: Multiplier: ${mult}, Amount Won: ${amountJustWon}, Current Bet: ${currCash}`);
-
-    setTotalCash(prevTotalCash => prevTotalCash + amountJustWon); // Add winnings to total cash
-
+    const amountJustWon = wantedBet * mult; // Calculate amount won in this round
+    setTotalCash(parseFloat((TotalCash + (wantedBet * mult)).toFixed(2))); // Add winnings to total cash
     setPopupData({ multiplier: mult, amountWon: amountJustWon });
     setShowCashOutPopup(true);
-
     // Reset game state for next round AFTER showing popup data
     setGameStarted(false);
-    setCurrCash(amountJustWon);
-    setTotalCash(parseFloat(parseFloat(TotalCash) + parseFloat(currCash)));
-    setCurrCash(0);
   }
   function StartButton() {
     setSquares(Array(25).fill(null));
     PlaceMines({Amount: minesAmt});
     setGameStarted(true);
     setMult(1);
-    setCurrCash(wantedBet);
-    setTotalCash(parseFloat(TotalCash-wantedBet));
+    setTotalCash(parseFloat((TotalCash-wantedBet).toFixed(2)));
     setSuccessAmt(0);
   }
   function PlaceMines({ Amount }) {
@@ -74,7 +65,6 @@ export default function MineField() {
       nextSquares[i] = mines[i];
       if (nextSquares[i] === "X") {
         setGameStarted(false);
-        setCurrCash(0);
         setMult(1);
         for (let t = 0; t < 25; t++) {
           nextSquares[t] = mines[t]
@@ -124,7 +114,7 @@ export default function MineField() {
           <div className="game-stats">
             <h4 className="multiplier-text">Multiplier: {mult}</h4>
             <h4 className="cash-text">TotalCash: {TotalCash}</h4>
-            <h4 className="cash-text">Cash Out Money: {parseFloat((mult * currCash).toFixed(2))}</h4>
+            <h4 className="cash-text">Cash Out Money: {parseFloat((mult * wantedBet).toFixed(2))}</h4>
           </div>
         </div>
       </div>
