@@ -1,8 +1,10 @@
+import { getPayout } from "./payoutTable.js";
 import { useState } from "react";
 import NumberInput from "./NumberInput.tsx";
 import GameBoard from "./GameBoard.js";
 import Square from "./Square.js";
-import CashOutPopup from './CashOutPopup.js';
+import CashOutPopup from './CashOutPopup.js';;
+
 
 export default function MineField() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -15,6 +17,8 @@ export default function MineField() {
   const [showCashOutPopup, setShowCashOutPopup] = useState(false);
   const [popupData, setPopupData] = useState({ multiplier: 0, amountWon: 0 });;
   const [wantedBet, setWantedBet] = useState(10);
+  const [successAmt, setSuccessAmt] = useState(0);
+
 
   function CashOut() {
     const amountJustWon = currCash * mult; // Calculate amount won in this round
@@ -27,7 +31,7 @@ export default function MineField() {
 
     // Reset game state for next round AFTER showing popup data
     setGameStarted(false);
-    setCurrCash(currCash * mult);
+    setCurrCash(amountJustWon);
     setTotalCash(parseFloat(parseFloat(TotalCash) + parseFloat(currCash)));
     setCurrCash(0);
   }
@@ -78,7 +82,8 @@ export default function MineField() {
 
       }
       else{
-        setMult(parseFloat((mult*(Math.pow(1.05,minesAmt))).toFixed(2)));
+        setSuccessAmt(successAmt+1);
+        setMult(getPayout(successAmt + 1, minesAmt));
       }
 
     }
