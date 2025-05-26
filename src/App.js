@@ -11,9 +11,10 @@ export default function MineField() {
   const [minesAmt, setAmt] = useState(1);
   const [mult, setMult] = useState(1);
   const [currCash,setCurrCash] = useState(0);
-  const [TotalCash, setTotalCash] = useState(300);
+  const [TotalCash, setTotalCash] = useState(300.0);
   const [showCashOutPopup, setShowCashOutPopup] = useState(false);
-  const [popupData, setPopupData] = useState({ multiplier: 0, amountWon: 0 });
+  const [popupData, setPopupData] = useState({ multiplier: 0, amountWon: 0 });;
+  const [wantedBet, setWantedBet] = useState(10);
 
   function CashOut() {
     const amountJustWon = currCash * mult; // Calculate amount won in this round
@@ -26,19 +27,18 @@ export default function MineField() {
 
     // Reset game state for next round AFTER showing popup data
     setGameStarted(false);
-    setCurrCash(0); // Reset bet amount for next game
-    // mult will be reset when starting a new game via StartButton
-
-    setTimeout(() => {
-      setShowCashOutPopup(false);
-    }, 3000); // Hide popup after 3 seconds
+    setCurrCash(currCash * mult);
+    setTotalCash(parseFloat(parseFloat(TotalCash) + parseFloat(currCash)));
+    setCurrCash(0);
   }
   function StartButton() {
     setSquares(Array(25).fill(null));
     PlaceMines({Amount: minesAmt});
     setGameStarted(true);
     setMult(1);
-    setTotalCash(TotalCash-currCash);
+    setCurrCash(wantedBet);
+    setTotalCash(parseFloat(TotalCash-wantedBet));
+    setSuccessAmt(0);
   }
   function PlaceMines({ Amount }) {
     const nextMines = Array(25).fill("V");
@@ -91,7 +91,7 @@ export default function MineField() {
         <button className="btn-start" onClick={StartButton} disabled = {gameStarted}>Start</button>
         <button className="btn-cashout" onClick={CashOut} disabled = {!gameStarted}>Cash Out</button>
         <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
-        <NumberInput label={"Cash for game"} value = {currCash} onChange={setCurrCash} disabled = {gameStarted} />
+        <NumberInput label={"Cash for game"} value = {wantedBet} onChange={setWantedBet} disabled = {gameStarted} />
       </div>
       <div className="game-info">
         <h4 className="multiplier-text">Multiplier: {mult}</h4>
