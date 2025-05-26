@@ -74,15 +74,7 @@ ul {
   cursor: pointer; /* Retained for clarity, though base .square now has it */
 }
 
-.square-revealed-safe {
-  background-color: #00C853; /* Updated to bright green */
-  color: #FFFFFF; /* Ensured White diamond icon */
-}
 
-.square-revealed-mine {
-  background-color: #E53E3E; /* Red background for mine */
-  color: #FFFFFF; /* White bomb icon */
-}
 
 .square-disabled {
   cursor: not-allowed;
