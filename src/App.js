@@ -11,15 +11,16 @@ export default function MineField() {
   const [minesAmt, setAmt] = useState(1);
   const [mult, setMult] = useState(1);
   const [currCash,setCurrCash] = useState(0);
-  const [TotalCash, setTotalCash] = useState(300);
-  const [successAmt, setSuccessAmt] = useState(0)
+  const [TotalCash, setTotalCash] = useState(300.0);
+  const [successAmt, setSuccessAmt] = useState(0);
+  const [wantedBet, setWantedBet] = useState(10);
 
   function CashOut() {
     console.log("player won " + currCash*mult + " money, at a "+mult+" multiplier");
     //code for pop out here.
     setGameStarted(false);
     setCurrCash(currCash * mult);
-    setTotalCash(TotalCash + currCash);
+    setTotalCash(parseFloat(parseFloat(TotalCash) + parseFloat(currCash)));
     setCurrCash(0);
   }
   function StartButton() {
@@ -27,7 +28,8 @@ export default function MineField() {
     PlaceMines({Amount: minesAmt});
     setGameStarted(true);
     setMult(1);
-    setTotalCash(TotalCash-currCash);
+    setCurrCash(wantedBet);
+    setTotalCash(parseFloat(TotalCash-wantedBet));
     setSuccessAmt(0);
   }
   function PlaceMines({ Amount }) {
@@ -85,7 +87,7 @@ export default function MineField() {
       <h4>TotalCash: {TotalCash}</h4>
       <h4>Cash Out Money: {parseFloat((mult * currCash).toFixed(2))}</h4>
       <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
-      <NumberInput label={"Cash for game"} value = {currCash} onChange={setCurrCash} disabled = {gameStarted} />
+      <NumberInput label={"Cash for game"} value = {wantedBet} onChange={setWantedBet} disabled = {gameStarted} />
       <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
     </>
   );
