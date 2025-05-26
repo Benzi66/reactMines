@@ -72,15 +72,20 @@ export default function MineField() {
 
   return (
     <>
-      
-      <button onClick={StartButton} disabled = {gameStarted}>Start</button>
-      <button onClick={CashOut} disabled = {!gameStarted}>Cash Out</button>
-      <h4>Multiplier: {mult}</h4>
-      <h4>TotalCash: {TotalCash}</h4>
-      <h4>Cash Out Money: {parseFloat((mult * currCash).toFixed(2))}</h4>
-      <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
-      <NumberInput label={"Cash for game"} value = {currCash} onChange={setCurrCash} disabled = {gameStarted} />
-      <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
+      <div className="game-controls">
+        <button onClick={StartButton} disabled = {gameStarted}>Start</button>
+        <button onClick={CashOut} disabled = {!gameStarted}>Cash Out</button>
+        <NumberInput label={"Amount of mines"} value = {minesAmt} onChange={setAmt} disabled = {gameStarted} />
+        <NumberInput label={"Cash for game"} value = {currCash} onChange={setCurrCash} disabled = {gameStarted} />
+      </div>
+      <div className="game-info">
+        <h4 className="multiplier-text">Multiplier: {mult}</h4>
+        <h4 className="cash-text">TotalCash: {TotalCash}</h4>
+        <h4 className="cash-text">Cash Out Money: {parseFloat((mult * currCash).toFixed(2))}</h4>
+      </div>
+      <div className="game-board">
+        <GameBoard squares={squares} onClick={handleClick} boardSize={5} gameStarted={!gameStarted}/>
+      </div>
     </>
   );
 }

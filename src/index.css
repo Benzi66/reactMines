@@ -1,11 +1,12 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   font-family: sans-serif;
   margin: 20px;
   padding: 0;
+  background-color: #333333;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -26,6 +27,7 @@ h3 {
 h4 {
   margin-top: 0;
   font-size: 16px;
+  color: #FFFFFF;
 }
 
 h5 {
@@ -46,29 +48,19 @@ ul {
   padding-inline-start: 20px;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
-}
-
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: #555555;
+  border: 1px solid #444444;
   float: left;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 40px;
+  height: 40px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 40px;
 }
 
 .board-row:after {
@@ -85,6 +77,44 @@ body {
   flex-direction: row;
 }
 
+.game-board {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.game-controls {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
 .game-info {
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #007bff;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.cash-text {
+  color: #4CAF50;
+}
+
+.multiplier-text {
+  color: #4CAF50;
 }
